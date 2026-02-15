@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Activity, TrendingUp, Clock, DollarSign, Zap, AlertCircle, Sparkles, Target } from 'lucide-react';
+import { Activity, Clock, DollarSign, Zap, AlertCircle, Sparkles, Target } from 'lucide-react';
 import EnhancedMetricCard from './EnhancedMetricCard';
 import EnhancedPaymentFeed from './EnhancedPaymentFeed';
 import SuccessRateTrendChart from './SuccessRateTrendChart';

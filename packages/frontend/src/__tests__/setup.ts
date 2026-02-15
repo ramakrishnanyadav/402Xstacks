@@ -8,7 +8,7 @@ afterEach(() => {
 });
 
 // Mock WebSocket
-global.WebSocket = class WebSocket {
+(globalThis as any).WebSocket = class WebSocket {
   constructor(public url: string) {}
   send() {}
   close() {}

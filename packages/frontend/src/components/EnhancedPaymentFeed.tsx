@@ -120,7 +120,7 @@ export default function EnhancedPaymentFeed({ events }: EnhancedPaymentFeedProps
             <p className="text-slate-500 text-sm mt-1">Payments will appear here in real-time</p>
           </div>
         ) : (
-          filteredEvents.map((event, idx) => {
+          filteredEvents.map((event) => {
             const config = getStatusConfig(event.status);
             const StatusIcon = config.icon;
             const isAnimating = animatingIds.has(event.paymentId);
@@ -154,7 +154,7 @@ export default function EnhancedPaymentFeed({ events }: EnhancedPaymentFeedProps
                       <span className="font-semibold text-indigo-400">
                         {event.amount} STX
                       </span>
-                      {event.attempts > 0 && (
+                      {event.attempts && event.attempts > 0 && (
                         <span className="text-amber-400">
                           Attempt {event.attempts}
                         </span>
