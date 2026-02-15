@@ -1,0 +1,10 @@
+[project]
+name = "x402-nexus-contracts"
+description = "Non-custodial escrow contracts for x402 payment reliability"
+authors = ["x402-Nexus Team"]
+telemetry = false
+
+[contracts.x402-nexus-escrow]
+path = "contracts/x402-nexus-escrow.clar"
+clarity_version = 2
+epoch = 2.4

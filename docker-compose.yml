@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  # Redis for state management
+  redis:
+    image: redis:7-alpine
+    container_name: x402-nexus-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - x402-nexus
+
+  # Backend API
+  backend:
+    build:
+      context: ./packages/backend
+      dockerfile: Dockerfile
+    container_name: x402-nexus-backend
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - STACKS_NETWORK=${STACKS_NETWORK:-testnet}
+      - STACKS_API_URL=${STACKS_API_URL:-https://api.testnet.hiro.so}
+      - CONTRACT_ADDRESS=${CONTRACT_ADDRESS}
+      - CONTRACT_NAME=${CONTRACT_NAME:-x402-nexus-escrow}
+      - API_KEY_SECRET=${API_KEY_SECRET}
+      - DEMO_MODE=${DEMO_MODE:-true}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+    depends_on:
+      redis:
+        condition: service_healthy
+    networks:
+      - x402-nexus
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3001/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  # Frontend Dashboard
+  frontend:
+    build:
+      context: ./packages/frontend
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=http://localhost:3001
+    container_name: x402-nexus-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - x402-nexus
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost/"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+
+volumes:
+  redis-data:
+    driver: local
+
+networks:
+  x402-nexus:
+    driver: bridge

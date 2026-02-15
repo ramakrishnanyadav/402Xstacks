@@ -1,0 +1,46 @@
+========================================
+  COPY THESE COMMANDS TO PUSH TO GITHUB
+========================================
+
+Step 1: Configure Git (First Time)
+-----------------------------------
+git config user.name "Ramakrishnan Yadav"
+git config user.email "ramakrishnayadav2004@gmail.com"
+
+
+Step 2: Initialize and Commit
+------------------------------
+git init
+git add .
+git commit -m "feat: Complete x402-Nexus payment reliability layer - Built for x402 Stacks Challenge 2026"
+
+
+Step 3: Add Remote and Push
+----------------------------
+git remote add origin https://github.com/ramakrishnanyadav/402Xstacks.git
+git branch -M main
+git push -u origin main
+
+
+========================================
+IMPORTANT NOTES:
+========================================
+
+1. Make sure repository exists at:
+   https://github.com/ramakrishnanyadav/402Xstacks
+
+2. For authentication, use Personal Access Token:
+   - Go to: https://github.com/settings/tokens
+   - Generate new token (classic)
+   - Select 'repo' scope
+   - Use token as password when pushing
+
+3. If push fails, you may need to force push first time:
+   git push -u origin main --force
+
+========================================
+Repository Details:
+========================================
+URL: https://github.com/ramakrishnanyadav/402Xstacks
+Author: Ramakrishnan Yadav
+Email: ramakrishnayadav2004@gmail.com

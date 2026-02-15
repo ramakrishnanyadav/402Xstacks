@@ -1,0 +1,13 @@
+{
+  "name": "@x402-nexus/contracts",
+  "version": "1.0.0",
+  "description": "Clarity smart contracts for x402-Nexus",
+  "scripts": {
+    "test": "clarinet test",
+    "check": "clarinet check",
+    "deploy": "clarinet deploy --testnet"
+  },
+  "devDependencies": {
+    "@hirosystems/clarinet-sdk": "^2.0.0"
+  }
+}
